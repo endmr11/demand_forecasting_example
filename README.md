@@ -1,94 +1,103 @@
-# Satış Tahmini Modeli
+# 📊 Sales Forecasting Model
 
-Bu proje, perakende satışlarını tahmin etmek için ARIMA, SARIMA ve LSTM (Long Short-Term Memory) gibi zaman serisi modelleme yöntemlerini kullanmaktadır. Bu dosya, proje adımlarını ve kullanılan yöntemleri açıklar. Proje, Python'da yazılmış olup, veri analizi, modelleme ve tahmin için çeşitli kütüphaneler kullanmaktadır.
+This project uses time series modeling techniques such as ARIMA, SARIMA, and LSTM (Long Short-Term Memory) to forecast retail sales. The file explains the project steps and the modeling methods used. The project is written in Python and utilizes various libraries for data analysis, modeling, and forecasting.
 
-## Proje İçeriği
+---
 
-1. **Veri Hazırlığı ve Ön İşleme**
-2. **Aylık Satış Analizi**
-3. **Zaman Serisi Modelleme**
-4. **Model Karşılaştırması ve Değerlendirmesi**
-5. **Model Performans Karşılaştırması**
+## 📁 Project Structure
 
-## Kullanılan Kütüphaneler
+1. **Data Preparation and Preprocessing**  
+2. **Monthly Sales Analysis**  
+3. **Time Series Modeling**  
+4. **Model Comparison and Evaluation**  
+5. **Model Performance Comparison**
 
-- **pandas**: Veri analizi ve manipülasyonu için.
-- **numpy**: Sayısal hesaplamalar için.
-- **matplotlib**: Veri görselleştirme için.
-- **seaborn**: İleri düzey görselleştirme için.
-- **statsmodels**: ARIMA ve SARIMA modelleri için.
-- **keras**: LSTM modelinin oluşturulması için.
-- **scikeras**: Keras'ı sklearn uyumlu hale getirmek için.
-- **scikit-learn**: Veri bölme, hiperparametre ayarlama ve model değerlendirme için.
+---
 
-## Adımlar
+## 📚 Libraries Used
 
-### 1. Veri Hazırlığı ve Ön İşleme
+- **pandas**: Data manipulation and analysis  
+- **numpy**: Numerical computations  
+- **matplotlib**: Data visualization  
+- **seaborn**: Advanced data visualization  
+- **statsmodels**: For ARIMA and SARIMA modeling  
+- **keras**: For building the LSTM model  
+- **scikeras**: To integrate Keras with scikit-learn  
+- **scikit-learn**: For data splitting, hyperparameter tuning, and evaluation  
 
-Projeye başlarken, ham veri dosyasını `train.csv` dosyasından okuduk ve aşağıdaki işlemeleri gerçekleştirdik:
+---
 
-- **Tarih Kolonları**: "date" kolonundan yıl, ay, gün, haftanın günü ve hafta sonu olup olmadığı gibi özellikler türettik.
-- **Satış Verisi**: "sales" kolonunun analizi ve tahmin yapılması hedeflendi.
+## ⚙️ Steps
 
-### 2. Aylık Satış Analizi
+### 1. Data Preparation and Preprocessing
 
-Satışların zaman içindeki eğilimini analiz etmek için:
-- Her yılın her ayında toplam satışları gruplayıp, ay bazında satışların toplamını hesapladık.
-- Aylık satışları görselleştirerek ortalama satış değerini ve en yüksek satış noktasını belirledik.
-- Trend analizi yaparak satışlarda görülen artış/azalış durumunu inceledik.
+- Loaded raw data from `train.csv`
+- Extracted features from the "date" column such as year, month, day, weekday, and weekend flag  
+- Target column: `sales`
 
-### 3. Zaman Serisi Modelleme
+### 2. Monthly Sales Analysis
 
-Zaman serisi tahminlemesi yapmak için üç farklı model kullandık:
+- Grouped data by year and month to compute total monthly sales  
+- Visualized monthly sales trends and identified peak values  
+- Performed trend analysis to detect increase or decrease patterns  
 
-#### 3.1 ARIMA Modeli
+### 3. Time Series Modeling
 
-ARIMA (AutoRegressive Integrated Moving Average) modelini uyguladık. Modelin parametrelerini belirlemek için:
-- **p**: Geçmiş değerlerin etkisi (AR kısmı).
-- **d**: Fark alma (Durağanlık sağlamak için).
-- **q**: Hata terimi sayısı (MA kısmı).
+#### 3.1 ARIMA Model
 
-ARIMA modelini eğittikten sonra, gelecek 12 ayın satışlarını tahmin ettik.
+- Used ARIMA (AutoRegressive Integrated Moving Average)
+- Parameters:
+  - `p`: Autoregression (AR) order  
+  - `d`: Degree of differencing (to ensure stationarity)  
+  - `q`: Moving Average (MA) order  
+- Trained ARIMA and forecasted sales for the next 12 months
 
-#### 3.2 SARIMA Modeli
+#### 3.2 SARIMA Model
 
-ARIMA'nın mevsimsel versiyonu olan SARIMA'yı kullandık. SARIMA, aynı zamanda sezonluk bileşenleri modelleyebilmek için:
-- **S**: Mevsimsel periyot (12 ay).
+- Seasonal ARIMA model (SARIMA) to capture seasonality  
+- Includes a seasonal period `S = 12` (monthly seasonality)
+- Trained SARIMA and analyzed forecast and residual errors
 
-Model eğitildikten sonra, SARIMA'nın tahminlerini ve model hata paylarını analiz ettik.
+#### 3.3 LSTM Model
 
-#### 3.3 LSTM Modeli
+- Implemented a Long Short-Term Memory (LSTM) neural network  
+- Normalized the data  
+- Trained and evaluated the model  
+- Forecasted sales for the next 12 months
 
-LSTM (Long Short-Term Memory), zaman serileri verisiyle çalışan derin öğrenme modelidir. Bu modelde:
-- Veriyi normalize ettik.
-- LSTM'nin eğitim ve test aşamalarını gerçekleştirdik.
-- 12 aylık satış tahminini modelledik.
+---
 
-### 4. Model Karşılaştırması ve Değerlendirmesi
+### 4. Model Comparison and Evaluation
 
-Elde ettiğimiz tahminleri görselleştirerek, **ARIMA**, **SARIMA** ve **LSTM** modellerini karşılaştırdık:
-- Gerçek satış verilerini, her üç modelin tahminleriyle karşılaştırarak hangi modelin daha doğru tahminler yaptığını değerlendirdik.
+- Visualized predictions from ARIMA, SARIMA, and LSTM  
+- Compared forecasts against actual sales values  
+- Assessed accuracy and reliability of each model
 
-### 5. Model Performans Karşılaştırması
+---
 
-Her modelin doğruluğunu karşılaştırmak için:
-- **Root Mean Squared Error (RMSE)** metriği kullanarak her modelin performansını ölçtük.
-- En iyi performansı gösteren model, tahmin sonuçlarına göre seçildi.
+### 5. Model Performance Comparison
 
-## Kullanılan Fonksiyonlar
+- Measured model performance using **Root Mean Squared Error (RMSE)**  
+- Selected the best-performing model based on lowest RMSE
 
-- `analyze_monthly_sales()`: Aylık satışları gruplar ve analiz eder.
-- `create_dataset()`: Veriyi zaman serisi formatına dönüştürür.
-- `time_series_cv()`: Zaman serisi çapraz doğrulama işlemi yapar.
-- `arima_grid_search()`: ARIMA modelinin hiperparametre ayarlarını yapar.
-- `create_lstm_model()`: LSTM modelini oluşturur.
+---
 
+## 🧩 Custom Functions
 
-## Kurulum
+- `analyze_monthly_sales()`: Groups and analyzes monthly sales  
+- `create_dataset()`: Converts data into time series format  
+- `time_series_cv()`: Performs cross-validation for time series  
+- `arima_grid_search()`: Tunes hyperparameters for ARIMA  
+- `create_lstm_model()`: Builds the LSTM neural network model  
 
-Proje için gerekli kütüphanelerin kurulumu:
+---
 
-Veri Seti: https://www.kaggle.com/competitions/demand-forecasting-kernels-only/data
+## 💻 Setup
+
+Install required libraries:
+
+📦 Dataset:  
+https://www.kaggle.com/competitions/demand-forecasting-kernels-only/data
 
 ```bash
 pip install pandas numpy matplotlib seaborn statsmodels keras scikit-learn scikeras
